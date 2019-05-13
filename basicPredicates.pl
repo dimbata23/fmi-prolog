@@ -27,7 +27,7 @@ ex_last(Elem, [_|Tail]) :-
 
 
 % ex_length(List, Len).
-%  returns the length of a list.
+%  returns the length of a list
 ex_length([], 0).
 ex_length([_|T], N) :-
     length(T, M),
@@ -35,7 +35,7 @@ ex_length([_|T], N) :-
 
 
 % ex_reverse(List, ReversedList).
-%  creates a reversed list.
+%  creates a reversed list
 ex_reverse(List, RevList) :-
     ex_reverse(List, RevList, []).
 ex_reverse([], Buff, Buff).
