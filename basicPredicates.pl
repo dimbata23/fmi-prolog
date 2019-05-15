@@ -66,7 +66,46 @@ ex_infix(Infix, List) :-
 
 
 % ex_insert(Elem, List, ResultList).
-%  inserts an element
+%  inserts an element somewhere in a list
 ex_insert(Elem, List, ResultList) :-
-    append(A, B, List),
-    append(A, [Elem|B], ResultList).
+    ex_append(A, B, List),
+    ex_append(A, [Elem|B], ResultList).
+
+
+% ex_remove(Elem, List, ResultList).
+%  removes an element from a list
+ex_remove(Elem, List, ResultList) :-
+    ex_append(List1, [Elem|Tail], List),
+    ex_append(List1, Tail, ResultList).
+
+
+% ex_permutation(List, ResultList).
+%  creates a permutation of the given list
+ex_permutation([], []).
+ex_permutation([H|T], ResultList) :-
+    ex_permutation(T, Perm),
+    ex_insert(H, Perm, ResultList).
+
+
+% ex_isSorted(List).
+%  checks wheter the given list is sorted
+ex_isSorted([]).
+ex_isSorted([_]).
+ex_isSorted([H, H2|T]) :-
+    ex_isSorted([H2|T]),
+    H=<H2.
+
+
+% ex_logicIsSorted(List).
+%  checks wheter the given list is sorted
+ex_logicIsSorted(List) :-
+    not(( ex_infix([X, Y], List),
+          X>=Y
+        )).
+
+
+% ex_slowSort(List, SortedList).
+%  please don't use this...
+ex_slowSort(List, SortedList) :-
+    ex_permutation(List, SortedList),
+    ex_isSorted(SortedList).
