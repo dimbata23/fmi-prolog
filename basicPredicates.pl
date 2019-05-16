@@ -157,3 +157,17 @@ ex_nthElement(0, [Elem|_], Elem).
 ex_nthElement(N, [_|T], Elem) :-
     ex_nthElement(M, T, Elem),
     N is M+1.
+
+
+% ex_count(Element, NumOfOccurrences, List).
+%  counts the number of occurrences of
+%  an element in the given list
+%  or checks the number of occurrences
+ex_count(_, 0, []).
+ex_count(Elem, N, [Elem|T]) :-
+    ex_count(Elem, M, T),
+    N is M+1.
+ex_count(Elem, N, [H|T]) :-
+    Elem\=H,
+    ex_count(Elem, N, T).
+
