@@ -1,5 +1,5 @@
 % ex_isList(List).
-%  cheks wheter the argument is a list
+%  cheks whether or not the argument is a list
 ex_isList([]).
 ex_isList([_|_]).
 
@@ -13,7 +13,7 @@ ex_append([Head|Tail], Latter, [Head|Result]) :-
 
 
 % ex_member(Elem, List).
-%  checks wheter the list contains that element
+%  checks whether or not the list contains that element
 ex_member(Elem, [Elem|_]).
 ex_member(Elem, [_|Tail]) :-
     ex_member(Elem, Tail).
@@ -88,7 +88,7 @@ ex_permutation([H|T], ResultList) :-
 
 
 % ex_isSorted(List).
-%  checks wheter the given list is sorted
+%  checks whether or not the given list is sorted
 ex_isSorted([]).
 ex_isSorted([_]).
 ex_isSorted([H, H2|T]) :-
@@ -97,7 +97,7 @@ ex_isSorted([H, H2|T]) :-
 
 
 % ex_logicIsSorted(List).
-%  checks wheter the given list is sorted
+%  checks whether or not the given list is sorted
 ex_logicIsSorted(List) :-
     not(( ex_infix([X, Y], List),
           X>Y
