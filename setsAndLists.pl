@@ -109,7 +109,7 @@ p2(L) :-
 
 /* Problem3:
     Define a predicate p3(X, Y) that for a given list X
-    generates in Y a list containing elements of X such
+    generates in Y a list containing the elements of X such
     that the number of occurrences of the most occurring
     element in Y is a number that is not contained in X.
     Needed new predicates: subsequence, count, countMax
@@ -117,7 +117,7 @@ p2(L) :-
 
 % ex_subsequence(List, Result).
 %  generates subsequences in result
-ex_subsequence([], _).
+ex_subsequence([], []).
 ex_subsequence([X|T1], [X|T2]) :-
     ex_subsequence(T1, T2).
 ex_subsequence([X|T1], [_|T2]) :-
