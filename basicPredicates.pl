@@ -100,7 +100,7 @@ ex_isSorted([H, H2|T]) :-
 %  checks wheter the given list is sorted
 ex_logicIsSorted(List) :-
     not(( ex_infix([X, Y], List),
-          X>=Y
+          X>Y
         )).
 
 
@@ -109,3 +109,51 @@ ex_logicIsSorted(List) :-
 ex_slowSort(List, SortedList) :-
     ex_permutation(List, SortedList),
     ex_isSorted(SortedList).
+
+
+% ex_partition(Pivot, List, LL, RL).
+%  the partition function used by quick sort
+ex_partition(_, [], [], []).
+ex_partition(Pivot, [H|T], [H|LL], RL) :-
+    H<Pivot,
+    ex_partition(Pivot, T, LL, RL).
+ex_partition(Pivot, [H|T], LL, [H|RL]) :-
+    H>=Pivot,
+    ex_partition(Pivot, T, LL, RL).
+
+
+% ex_quickSort(List, SortedList).
+%  uses quick sort to sort the given list
+ex_quickSort([], []).
+ex_quickSort([H|T], Result) :-
+    ex_partition(H, T, LT, RT),
+    ex_quickSort(LT, SLT),
+    ex_quickSort(RT, SRT),
+    ex_append(SLT, [H|SRT], Result).
+
+
+% ex_min(List, ResultElem).
+%  returns the smallest element in a list
+ex_min(List, ResultElem) :-
+    ex_member(ResultElem, List),
+    not(( ex_member(X, List),
+          X<ResultElem
+        )).
+
+
+% ex_max(List, ResultElem).
+%  returns the largest element in a list
+ex_max(List, ResultElem) :-
+    ex_member(ResultElem, List),
+    not(( ex_member(X, List),
+          X>ResultElem
+        )).
+
+
+% ex_nthElement(Index, List, Element)
+%  returns the n-th element of a list
+%  or checks if the n-th element is the given
+ex_nthElement(0, [Elem|_], Elem).
+ex_nthElement(N, [_|T], Elem) :-
+    ex_nthElement(M, T, Elem),
+    N is M+1.
