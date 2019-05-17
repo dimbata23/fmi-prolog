@@ -54,7 +54,8 @@ removeDuplicates([H|T], Result) :-
 
 % Example problems with sets
 
-/* Problem1:
+/*
+  Problem1:
     Define a predicate p1(L), where L is a list of lists,
     that checks whether or not for each pair of different
     lists in L there is a common element that's contained
@@ -63,7 +64,7 @@ removeDuplicates([H|T], Result) :-
         /  Different brackets are used to help  /
         / identifying the corresponding bracket /
     Solution:
-        (∀X∈L)(∀Y∈L) { X≠Y → (∃T∈X)( T∈Y & (∃Z∈L)(T∉Z) ) }
+        (∀X∈L)(∀Y∈L) [ X≠Y → (∃T∈X){ T∈Y & (∃Z∈L)(T∉Z) } ]
     Translated to prolog:
         ¬( (∃X∈L)(∃Y∈L) [ X≠Y & ¬(∃T∈X){ T∈Y & (∃Z∈L)(T∉Z) } ] )
 */
@@ -80,7 +81,8 @@ p1(L) :-
 
 
 
-/* Problem2:
+/*
+  Problem2:
     Define a predicate p2(L), where L is a list of lists,
     that checks whether or not there is a pair of different
     lists in L that have a common element, contained in
@@ -89,9 +91,9 @@ p1(L) :-
         /  Different brackets are used to help  /
         / identifying the corresponding bracket /
     Solution:
-        (∃X∈L)(∃Y∈L) { X≠Y & (∃T∈X)[ T∈Y & (∀Z∈L)( Z≠X & Z≠Y → T∉Z ) ] }
+        (∃X∈L)(∃Y∈L) ( X≠Y & (∃T∈X)[ T∈Y & (∀Z∈L){ Z≠X & Z≠Y → T∉Z } ] )
     Translated to prolog:
-        (∃X∈L)(∃Y∈L) { X≠Y & (∃T∈X)[ T∈Y & ¬(∃Z∈L)( Z≠X & Z≠Y & T∈Z ) ] }
+        (∃X∈L)(∃Y∈L) ( X≠Y & (∃T∈X)[ T∈Y & ¬(∃Z∈L){ Z≠X & Z≠Y & T∈Z } ] )
 */
 p2(L) :-
     member(X, L),
@@ -107,7 +109,8 @@ p2(L) :-
 
 
 
-/* Problem3:
+/*
+  Problem3:
     Define a predicate p3(X, Y) that for a given list X
     generates in Y a list containing the elements of X such
     that the number of occurrences of the most occurring
