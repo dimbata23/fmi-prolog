@@ -1,3 +1,26 @@
+% flatten(List, Result).
+%  [1, 2, a, b, [c, d, [e, f], g], [], [[], []], [3]]
+%    becomes
+%  [1, 2, a, b, c, d, e, f, g, 3]
+flatten([], []).
+flatten(X, [X]) :-
+    \+ is_list(X).
+flatten([H|T], Result) :-
+    flatten(H, Res1),
+    flatten(T, Res2),
+    append(Res1, Res2, Result).
+
+
+% split(List, Result).
+%  generates all the ways the list
+%  can be split into sublists
+split([], []).
+split([H|T], [A|Result]) :-
+    append(A, B, [H|T]),
+    A\=[],
+    split(B, Result).
+
+
 % inUnion(Element, A, B).
 %  checks whether the given element is contained in the union of A and B
 %  or returns an element contained in the union of A and B
