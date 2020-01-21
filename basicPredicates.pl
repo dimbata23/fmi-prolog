@@ -31,7 +31,7 @@ ex_last(Elem, [_|Tail]) :-
 ex_length([], 0).
 ex_length([_|T], N) :-
     ex_length(T, M),
-    N is M+1.
+    N is M + 1.
 
 
 % ex_reverse(List, ReversedList).
@@ -93,14 +93,14 @@ ex_isSorted([]).
 ex_isSorted([_]).
 ex_isSorted([H, H2|T]) :-
     ex_isSorted([H2|T]),
-    H=<H2.
+    H =< H2.
 
 
 % ex_logicIsSorted(List).
 %  checks whether or not the given list is sorted
 ex_logicIsSorted(List) :-
     not(( ex_infix([X, Y], List),
-          X>Y
+          X > Y
         )).
 
 
@@ -115,10 +115,10 @@ ex_slowSort(List, SortedList) :-
 %  the partition function used by quick sort
 ex_partition(_, [], [], []).
 ex_partition(Pivot, [H|T], [H|LL], RL) :-
-    H<Pivot,
+    H < Pivot,
     ex_partition(Pivot, T, LL, RL).
 ex_partition(Pivot, [H|T], LL, [H|RL]) :-
-    H>=Pivot,
+    H >= Pivot,
     ex_partition(Pivot, T, LL, RL).
 
 
@@ -132,22 +132,60 @@ ex_quickSort([H|T], Result) :-
     ex_append(SLT, [H|SRT], Result).
 
 
+% ex_min2(Num1, Num2, ResultMin).
+%  returns the smaller of two numbers
+ex_min2(X, Y, X) :- 
+    X < Y.
+ex_min2(X, Y, Y) :-
+    Y =< X.
+
+
 % ex_min(List, ResultElem).
 %  returns the smallest element in a list
-ex_min(List, ResultElem) :-
+ex_min([H|T], ResultElem) :- 
+    ex_linearMin([H|T], H, ResultElem).
+
+ex_linearMin([], CurrMin, CurrMin).
+ex_linearMin([H|T], CurrMin, ResultElem) :-
+    ex_min2(H, CurrMin, Min),
+    ex_linearMin(T, Min, ResultElem).
+
+
+% ex_logicMin(List, ResultElem).
+%  returns the smallest element in a list
+ex_logicMin(List, ResultElem) :-
     ex_member(ResultElem, List),
     not(( ex_member(X, List),
-          X<ResultElem
+          X < ResultElem
         )).
+
+
+% ex_logicMax(List, ResultElem).
+%  returns the largest element in a list
+ex_logicMax(List, ResultElem) :-
+    ex_member(ResultElem, List),
+    not(( ex_member(X, List),
+          X > ResultElem
+        )).
+
+
+% ex_max2(Num1, Num2, ResultMax).
+%  returns the larger of two numbers
+ex_max2(X, Y, X) :- 
+    X > Y.
+ex_max2(X, Y, Y) :-
+    Y >= X.
 
 
 % ex_max(List, ResultElem).
 %  returns the largest element in a list
-ex_max(List, ResultElem) :-
-    ex_member(ResultElem, List),
-    not(( ex_member(X, List),
-          X>ResultElem
-        )).
+ex_max([H|T], ResultElem) :- 
+    ex_linearMax([H|T], H, ResultElem).
+
+ex_linearMax([], CurrMax, CurrMax).
+ex_linearMax([H|T], CurrMax, ResultElem) :-
+    ex_max2(H, CurrMax, Max),
+    ex_linearMax(T, Max, ResultElem).
 
 
 % ex_nthElement(Index, List, Element)
@@ -156,7 +194,7 @@ ex_max(List, ResultElem) :-
 ex_nthElement(0, [Elem|_], Elem).
 ex_nthElement(N, [_|T], Elem) :-
     ex_nthElement(M, T, Elem),
-    N is M+1.
+    N is M + 1.
 
 
 % ex_count(Element, NumOfOccurrences, List).
@@ -166,8 +204,7 @@ ex_nthElement(N, [_|T], Elem) :-
 ex_count(_, 0, []).
 ex_count(Elem, N, [Elem|T]) :-
     ex_count(Elem, M, T),
-    N is M+1.
+    N is M + 1.
 ex_count(Elem, N, [H|T]) :-
-    Elem\=H,
+    Elem \= H,
     ex_count(Elem, N, T).
-
